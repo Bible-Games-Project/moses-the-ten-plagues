@@ -615,31 +615,69 @@ export function PlagueOne() {
       ctx.fillStyle = C.bright;
       ctx.fillRect(ds.x + DOOR.w / 2 - 2, ds.y + DOOR.h / 2, 4, 4);
 
-      // Moses (tiny pixel man)
+      // Moses — bright cream pixel sprite, drawn last so it sits above terrain
       const ps = worldToScreen(player.x, player.y);
       const walk = Math.floor(player.walkT) % 2 === 0;
-      // robe
-      ctx.fillStyle = C.bright;
-      ctx.fillRect(ps.x, ps.y + 6, player.w, player.h - 6);
-      // head
-      ctx.fillStyle = C.pale;
-      ctx.fillRect(ps.x + 2, ps.y, player.w - 4, 6);
-      // beard
-      ctx.fillStyle = C.hi;
-      ctx.fillRect(ps.x + 2, ps.y + 5, player.w - 4, 2);
-      // staff
-      ctx.fillStyle = C.pale;
-      const staffX = player.face === 1 ? ps.x + player.w : ps.x - 1;
-      ctx.fillRect(staffX, ps.y - 3, 1, player.h + 3);
-      // legs
-      ctx.fillStyle = C.hi;
+      const px = Math.round(ps.x);
+      const py = Math.round(ps.y);
+      const w = player.w;
+      const h = player.h;
+
+      // subtle shadow on ground
       if (player.onGround) {
-        ctx.fillRect(ps.x + 2, ps.y + player.h - 2, 2, 2);
-        ctx.fillRect(ps.x + player.w - 4, ps.y + player.h - 2, 2, 2);
-        if (walk && Math.abs(player.vx) > 5) {
-          ctx.fillRect(ps.x + 1, ps.y + player.h - 1, 2, 1);
-        }
+        ctx.fillStyle = C.bg0;
+        ctx.fillRect(px - 1, py + h, w + 2, 1);
       }
+
+      // dark outline for contrast against crimson
+      ctx.fillStyle = C.bg0;
+      ctx.fillRect(px - 1, py, w + 2, h);
+      ctx.fillRect(px, py - 1, w, h + 2);
+
+      // robe (cream body)
+      ctx.fillStyle = C.cream;
+      ctx.fillRect(px, py + 7, w, h - 7);
+      // robe shading
+      ctx.fillStyle = C.creamShade;
+      ctx.fillRect(px, py + h - 3, w, 1);
+      ctx.fillRect(px + w - 1, py + 7, 1, h - 7);
+
+      // head
+      ctx.fillStyle = C.cream;
+      ctx.fillRect(px + 2, py, w - 4, 7);
+      // hair band
+      ctx.fillStyle = C.creamDark;
+      ctx.fillRect(px + 2, py, w - 4, 1);
+      // beard
+      ctx.fillStyle = C.creamShade;
+      ctx.fillRect(px + 2, py + 5, w - 4, 2);
+      // eye
+      ctx.fillStyle = C.bg0;
+      const eyeX = player.face === 1 ? px + w - 4 : px + 3;
+      ctx.fillRect(eyeX, py + 3, 1, 1);
+
+      // belt
+      ctx.fillStyle = C.creamDark;
+      ctx.fillRect(px, py + 12, w, 1);
+
+      // legs
+      ctx.fillStyle = C.cream;
+      const legY = py + h - 3;
+      if (player.onGround && walk && Math.abs(player.vx) > 5) {
+        ctx.fillRect(px + 2, legY, 3, 3);
+        ctx.fillRect(px + w - 5, legY - 1, 3, 3);
+      } else {
+        ctx.fillRect(px + 2, legY, 3, 3);
+        ctx.fillRect(px + w - 5, legY, 3, 3);
+      }
+
+      // staff
+      ctx.fillStyle = C.creamDark;
+      const staffX = player.face === 1 ? px + w + 1 : px - 2;
+      ctx.fillRect(staffX, py - 4, 1, h + 6);
+      ctx.fillStyle = C.cream;
+      ctx.fillRect(staffX - 1, py - 5, 3, 2);
+
 
       // HUD
       ctx.fillStyle = C.text;
