@@ -160,7 +160,7 @@ function makeLevel(): { platforms: Platform[]; spikes: Spike[]; fountains: Fount
 }
 
 // ---------- Audio (WebAudio synths) ----------
-class Audio {
+class GameAudio {
   ctx: AudioContext | null = null;
   ambient: OscillatorNode | null = null;
   ambientGain: GainNode | null = null;
@@ -233,7 +233,7 @@ export function PlagueOne() {
     const canvas = canvasRef.current;
     if (!canvas || !started) return;
     const ctx = canvas.getContext("2d")!;
-    const audio = new Audio();
+    const audio = new GameAudio();
     audio.startAmbient();
 
     // Logical resolution (pixel art). We scale to fit.
