@@ -240,8 +240,9 @@ export function PlagueOne() {
     audio.startAmbient();
 
     // Logical resolution (pixel art). We scale to fit.
-    const VW = 480;
-    const VH = 270;
+    // Logical viewport must include full vertical world (ground at y=460).
+    const VW = 960;
+    const VH = 540;
     ctx.imageSmoothingEnabled = false;
 
     let raf = 0;
