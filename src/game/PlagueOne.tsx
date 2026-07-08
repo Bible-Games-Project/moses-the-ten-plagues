@@ -12,6 +12,9 @@ const C = {
   pale: "#f26478",
   sun: "#ff8090",
   text: "#f6c4ca",
+  cream: "#fff4dc",
+  creamShade: "#e8cf9f",
+  creamDark: "#a88a55",
 };
 
 // ---------- Types ----------
